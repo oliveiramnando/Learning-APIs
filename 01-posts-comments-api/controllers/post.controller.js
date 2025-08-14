@@ -2,7 +2,16 @@ const Post = require('../models/post.models');
 
 const createPost = async (req,res) => {
     try {
-        const post = await Post.create(req.body);
+        const { title, body, author } = req.body;
+
+        if (title.length < 1) { // very simple validator
+            return res.status(400).json({message: 'Invalid title'});
+        }
+        const post = await Post.create({
+            title,
+            body,
+            author
+        });
         res.status(200).json(post);
     } catch (error) {
         res.status(500).json({ message: error.message });
