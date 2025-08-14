@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const CommentSchema = mongoose.Schema(
     {
-        PostId: {
-            type: ObjectId,
+        postId: {
+            type: String,
             required: true
         },
         commenterName: {
