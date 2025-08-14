@@ -11,7 +11,7 @@ const listProjects = async (req,res) => {
 
 const readProject = async (req,res) => {
     try {
-        const id  = req.param.ProjectId;
+        const id = req.params.ProjectId;
         const project = await Projects.findById(id);
         res.status(200).json(project);
     } catch (error) {
@@ -30,15 +30,19 @@ const createProject = async (req,res) => {
 
 const updateProject = async (req,res) => {
     try {
-
+        const id = req.params.ProjectId;
+        const project = await Projects.findByIdAndUpdate(id, req.body);
+        res.status(200).json(project);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 }
 
 const deleteProject = async (req,res) => {
-    try {
-
+    try {   
+        const id = req.params.ProjectId;
+        const project = await Projects.findByIdAndDelete(id);
+        res.status(200).json({ message: "Project Deleted."});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
