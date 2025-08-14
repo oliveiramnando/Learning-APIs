@@ -3,8 +3,21 @@ const Comment = require('../models/comment.models.js');
 
 const readComments = async (req,res) => {
     try {
+        const { filter, value } = req.query;
         const Comments = await Comment.find({});
-        res.status(200).json(Comments);
+        
+        if (!filter || !value) {
+            return res.status(200).json(Comments); // returns statements for control flow
+        }
+        const filteredComments = Comments.filter(comment => {
+            return comment[filter]?.toString().includes(value);
+            // comment[filter] -- comment is an object; filter is a string from the query parameters
+            // ? -- only continute if the thing before is not null 
+            // .toString() -- ensure property is treated as string
+            // .inlcudes(value) -- checks if string contains value
+        })
+
+        res.status(200).json(filteredComments);
     }
     catch (error) {
         res.status(500).json({ message: error.message});
