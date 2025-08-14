@@ -5,6 +5,7 @@ const Product = require('./models/product.models.js'); // imports schema
 const app = express(); // exxpress() return s an express application object; app object represents enitre web server; app = core object used to configure and run server
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
