@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Post = require('./models/post.models');
 
 const postRoute = require('./routes/post.routes.js');
+const commentRoute = require('./routes/comment.routes.js');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // routes
 app.use("/api/posts", postRoute);
+app.use("/api/posts/:postId/comments", commentRoute);
 
 
 app.get('/', (req,res) => {
@@ -23,12 +25,12 @@ app.get('/', (req,res) => {
 
 
 mongoose
-    .connect(
-        `mongodb+srv://oliveiramnando:${db_password}@postncomments.aytgcrn.mongodb.net/?retryWrites=true&w=majority&appName=postncomments`
-    )
-    .then(() => {
-        console.log('Connected');
-        app.listen(3000, () => {
-            console.log('Server is running on port 3000')
-        });
+.connect(
+    `mongodb+srv://oliveiramnando:${db_password}@postncomments.aytgcrn.mongodb.net/?retryWrites=true&w=majority&appName=postncomments`
+)
+.then(() => {
+    console.log('Connected');
+    app.listen(3000, () => {
+        console.log('Server is running on port 3000')
     });
+});
