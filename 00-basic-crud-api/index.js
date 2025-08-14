@@ -49,6 +49,36 @@ app.get('/api/products/:id', async (req,res) => { // searches for specific item 
 });
 
 //update product
+app.put('/api/product/:id', async (req,res) => {
+    try{
+        const { id } = req.params;
+        const product = await Product.findByIdAndUpdate(id, req.body); // updates body with the req body
+
+        if (!product) {
+            return res.status(404).json({message: "Product not found"});
+        }
+        const updatedProduct = await Product.findById(id); // a check from data base
+        res.status(200).json(updatedProduct);
+
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
+
+// delete product
+app.delete('/api/product/:id', async (req,res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndDelete(id);
+        
+        if (!product) {
+            return res.status(404).json({message: "product not found"});
+        }
+        res.status(200).json({message: "product deleted successfully"});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
 
 mongoose.connect(mongoURI) // after .net/ , i added Node-API for the collection name
 .then(() => {
