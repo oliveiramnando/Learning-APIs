@@ -20,8 +20,8 @@ const readPosts = async (req,res) => {
 
 const readPost = async (req,res) => {
     try {
-        const { id } = req.params;
-        const post = await Post.findById(id);
+        const { postId } = req.params;
+        const post = await Post.findById(postId);
         res.status(200).json(post);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -30,12 +30,12 @@ const readPost = async (req,res) => {
 
 const updatePost = async (req,res) => {
     try {
-        const { id } = req.params;
+        const { postId } = req.params;
         const post = await Post.findByIdAndUpdate(id, req.body);
         if (!post) {
             res.status(404).json({ message: "Post Not Found." });
         }
-        const updatedPost = await Post.findById(id);
+        const updatedPost = await Post.findById(postId);
         res.status(200).json(updatedPost);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -44,8 +44,8 @@ const updatePost = async (req,res) => {
 
 const deletePost = async (req,res) => {
     try {
-        const { id } = req.params;
-        const post = await Post.findByIdAndDelete(id);
+        const { postId } = req.params;
+        const post = await Post.findByIdAndDelete(postId);
         if (!post) {
             res.status(404).json({ message: "Post Not Found." });
         }
