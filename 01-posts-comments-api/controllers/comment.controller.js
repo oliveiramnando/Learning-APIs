@@ -1,8 +1,9 @@
+const Post = require('../models/post.models.js');
 const Comment = require('../models/comment.models.js');
 
 const readComments = async (req,res) => {
     try {
-        const Comments = await Comment.findById({});
+        const Comments = await Comment.find({});
         res.status(200).json(Comments);
     }
     catch (error) {
@@ -35,7 +36,7 @@ const deleteComment = async (req,res) => {
 }
 
 
-module.export = {
+module.exports = {
     readComments,
     postComment,
     deleteComment
