@@ -2,13 +2,25 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const Post = require('./models/post.models');
+
+const postRoute = require('./routes/post.routes.js');
+
 const app = express();
 
 const db_password = process.env.DB_PASSWORD;
 
+// middleware
+app.use(express.json());
+
+// routes
+app.use("/api/posts", postRoute);
+
+
 app.get('/', (req,res) => {
     res.send("hello");
 });
+
 
 mongoose
     .connect(

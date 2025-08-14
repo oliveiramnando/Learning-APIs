@@ -1,0 +1,59 @@
+installed express 
+    terminal : npm i express
+
+made new project in mongodb website
+    terminal : npm install mongodb
+    terminal : npm i mongoose
+
+added password to .env
+install dotenv
+    terminal : npm install dotenv
+
+connected to db with mongoose at the bottom of server.js
+
+wrote script in package.json -- npm run server
+
+created models folder and schema for posts and comments
+    requires mongoose at the top
+    model the schema and export at the bottom
+
+created middleware section in server.js:
+    app.use(express.json());
+
+created routes and contollers folder and files
+    post.controller.js
+        require post model at top
+        export module of functions at bottom
+        controller has the functions of CRUD
+    post.routes.js
+        require express and model at top
+        express.Router()
+        require functions from post.controller at top as well
+        export router at the bottom
+
+
+
+
+
+
+
+
+
+Testing:
+curl -X POST http://localhost:3000/api/posts \
+-H "Content-Type: application/json" \
+-d '{"title": "Example Title", "body": "Image", "author": "John Doe"}'
+
+curl http://localhost:3000/api/posts
+
+curl http://localhost:3000/api/posts/id
+
+curl -X PUT http://localhost:3000/api/posts/689d6247824a7150d4b78610 \
+-H "Content-Type: application/json" \
+-d '{"title": "Another Title", "body": "Another Image", "author": "Jane Moore"}'
+
+curl -X PATCH http://localhost:3000/api/posts/689d6247824a7150d4b78610 \
+-H "Content-Type: application/json" \
+-d '{"body": "another another image"}'
+
+curl -X DELETE http://localhost:3000/api/posts/689d6247824a7150d4b78610
