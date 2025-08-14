@@ -6,10 +6,10 @@ const { createPost, readPosts, readPost, updatePost, deletePost } = require('../
 router.post('/', createPost);
 
 router.get('/', readPosts);
-router.get('/:id', readPost);
+router.get('/:postId', readPost);
 
-router.put('/:id', updatePost);
+router.put('/:postId', updatePost);
 
-router.delete('/:id', deletePost);
+router.delete('/:postId', deletePost);
 
-module.exports = router 
+module.exports = router;
