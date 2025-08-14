@@ -26,12 +26,20 @@ created routes and contollers folder and files
         export module of functions at bottom
         controller has the functions of CRUD
     post.routes.js
-        require express and model at top
+        require express and model at top // maybe dont even need model?? try it out
         express.Router()
         require functions from post.controller at top as well
         export router at the bottom
 
-
+    comment.controller.js
+        require comment model at top
+        export module of functions at bottom
+    comment.routes.js
+        require express
+        express.Router()
+        require functions from comment.controller at top as well
+        NEED TO NEST ROUTES, BEGAN DOIN IT
+        export router at the bottom
 
 
 
