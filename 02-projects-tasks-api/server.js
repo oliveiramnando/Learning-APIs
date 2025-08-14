@@ -1,8 +1,9 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
+
 const projectRoute = require('./routes/project.routes.js')
+const taskRoute = require('./routes/task.routes.js');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // routes
 app.use('/projects', projectRoute);
+app.use('/projects/:ProjectId/tasks', taskRoute);
 
 app.get('/', (req,res) => {
     res.send("Hello from 02-projects-tasks-api");
