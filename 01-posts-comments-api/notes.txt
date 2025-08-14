@@ -47,15 +47,25 @@ started trying to automatically assign postId to comment from url
 struggled with this
 after adding mergparams to router, i was able to get this going; before i wasn't able to access postId
 
-NOTE TO SELF:
-query filtering next
-then validation
+added query params for posts and comments
+deconstruct filter and value from req.query and then filter with 
+    object[filter]?.toString().includes(value)
+very very simple query stuff
+
+added very simple validator in post to check if there is a title when posting
+
+Difference:
+nested routes
+query filterning
+validating
+
+
 
 Testing:
 
 curl -X POST http://localhost:3000/api/posts \
 -H "Content-Type: application/json" \
--d '{"title": "Example Title", "body": "Image", "author": "John Doe"}'
+-d '{"title": "", "body": "Noffin", "author": "NoName"}'
 
 curl http://localhost:3000/api/posts
 
