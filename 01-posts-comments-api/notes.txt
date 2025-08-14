@@ -43,13 +43,13 @@ created routes and contollers folder and files
         export router at the bottom
     add route in server.js
 
+started trying to automatically assign postId to comment from url
+struggled with this
+after adding mergparams to router, i was able to get this going; before i wasn't able to access postId
 
 NOTE TO SELF:
-make it so that when u post a comment under post, it automatically takes up that post id
-
-
-
-
+query filtering next
+then validation
 
 Testing:
 
@@ -75,8 +75,8 @@ curl -X DELETE http://localhost:3000/api/posts/689d6247824a7150d4b78610
 
 curl -X POST http://localhost:3000/api/posts/689d6d007df7da2561fa70ba/comments \
 -H "Content-Type: application/json" \
--d '{"postId": "exampleId", "commenterName": "John Doe", "commentBody": "Hello World!"}'
+-d '{"commenterName": "john doe", "commentBody": "Hello World!"}'
 
 curl http://localhost:3000/api/posts/689d6d007df7da2561fa70ba/comments
 
-curl -X DELETE http://localhost:3000/api/posts/postId/comments/commentId
+curl -X DELETE http://localhost:3000/api/posts/689d6d007df7da2561fa70ba/comments/689df19045e1cf6bff937e5a

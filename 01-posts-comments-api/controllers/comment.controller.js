@@ -13,7 +13,15 @@ const readComments = async (req,res) => {
 
 const postComment = async (req,res) => {
     try {
-        const comment = await Comment.create(req.body);
+        const { postId } = req.params; 
+        const { commenterName, commentBody } = req.body;
+        const comment = new Comment({
+            postId,
+            commenterName,
+            commentBody
+        });
+        await comment.save();
+        
         res.status(200).json(comment);
     }
     catch (error) {
@@ -23,8 +31,8 @@ const postComment = async (req,res) => {
 
 const deleteComment = async (req,res) => {
     try {
-        const { id } = req.params;
-        const comment = await Comment.findByIdAndDelete(id);
+        const { commentId } = req.params;
+        const comment = await Comment.findByIdAndDelete(commentId);
         if (!comment){
             res.status(404).json({ message: "Comment Not Found" });
         }
