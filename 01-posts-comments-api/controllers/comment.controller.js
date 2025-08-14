@@ -15,7 +15,7 @@ const readComments = async (req,res) => {
             // ? -- only continute if the thing before is not null 
             // .toString() -- ensure property is treated as string
             // .inlcudes(value) -- checks if string contains value
-        })
+        });
 
         res.status(200).json(filteredComments);
     }
