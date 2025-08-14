@@ -11,8 +11,16 @@ const createPost = async (req,res) => {
 
 const readPosts = async (req,res) => {
     try { 
-        const post = await Post.find({});
-        res.status(200).json(post);
+        const { filter, value } = req.query;
+        const Posts = await Post.find({});
+
+        if (!filter || !value) {
+            return res.status(200).json(Posts);
+        }
+        const filteredPosts = Posts.filter(posts => {
+            return posts[filter]?.toString().includes(value);
+        });
+        res.status(200).json(filteredPosts);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
