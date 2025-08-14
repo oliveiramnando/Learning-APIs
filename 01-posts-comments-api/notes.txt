@@ -30,6 +30,7 @@ created routes and contollers folder and files
         express.Router()
         require functions from post.controller at top as well
         export router at the bottom
+    add route in server.js
 
     comment.controller.js
         require comment model at top
@@ -38,23 +39,27 @@ created routes and contollers folder and files
         require express
         express.Router()
         require functions from comment.controller at top as well
-        NEED TO NEST ROUTES, BEGAN DOIN IT
+        nested routes, be wary of req params; define routes relative to mount path
         export router at the bottom
+    add route in server.js
 
 
+NOTE TO SELF:
+make it so that when u post a comment under post, it automatically takes up that post id
 
 
 
 
 
 Testing:
+
 curl -X POST http://localhost:3000/api/posts \
 -H "Content-Type: application/json" \
 -d '{"title": "Example Title", "body": "Image", "author": "John Doe"}'
 
 curl http://localhost:3000/api/posts
 
-curl http://localhost:3000/api/posts/id
+curl http://localhost:3000/api/posts/689d6d007df7da2561fa70ba
 
 curl -X PUT http://localhost:3000/api/posts/689d6247824a7150d4b78610 \
 -H "Content-Type: application/json" \
@@ -65,3 +70,13 @@ curl -X PATCH http://localhost:3000/api/posts/689d6247824a7150d4b78610 \
 -d '{"body": "another another image"}'
 
 curl -X DELETE http://localhost:3000/api/posts/689d6247824a7150d4b78610
+
+---
+
+curl -X POST http://localhost:3000/api/posts/689d6d007df7da2561fa70ba/comments \
+-H "Content-Type: application/json" \
+-d '{"postId": "exampleId", "commenterName": "John Doe", "commentBody": "Hello World!"}'
+
+curl http://localhost:3000/api/posts/689d6d007df7da2561fa70ba/comments
+
+curl -X DELETE http://localhost:3000/api/posts/postId/comments/commentId
