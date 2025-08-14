@@ -1,0 +1,19 @@
+Set up basic server 
+make mongodb
+set up schemas
+create folder for routes and controllers
+start with contrllers first, then routes, then mount
+
+after making get and post, i was struggling a bit cause i started using thunder client. realised i needed:
+    app.use(express.json());
+in the middle ware, and bam it works
+
+
+Testing:
+
+using thunder client
+{
+    "title": "", 
+    "body": "Noffin", 
+    "author": "NoName"
+}

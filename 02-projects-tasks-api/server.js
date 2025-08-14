@@ -2,10 +2,21 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const projectRoute = require('./routes/project.routes.js')
 
 const app = express();
 
 const db_password = process.env.DB_PASSWORD;
+
+// middleware
+app.use(express.json());
+
+// routes
+app.use('/projects', projectRoute);
+
+app.get('/', (req,res) => {
+    res.send("Hello from 02-projects-tasks-api");
+})
 
 mongoose
 .connect(
