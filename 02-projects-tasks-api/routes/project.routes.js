@@ -5,11 +5,8 @@ const { listProjects, readProject, createProject, updateProject, deleteProject }
 
 router.get('/', listProjects);
 router.get('/:ProjectId', readProject);
-
 router.post('/', createProject);
-
 router.put('/:ProjectId', updateProject);
-
 router.delete('/:ProjectId', deleteProject);
 
 module.exports = router;
