@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const projectRoute = require('./routes/project.routes.js')
 const taskRoute = require('./routes/task.routes.js');
+const userRouter = require('./routes/user.routes.js');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // routes
 app.use('/projects', projectRoute);
 app.use('/projects/:ProjectId/tasks', taskRoute);
+app.user('/user/', userRoute);
 
 app.get('/', (req,res) => {
     res.send("Hello from 02-projects-tasks-api");
