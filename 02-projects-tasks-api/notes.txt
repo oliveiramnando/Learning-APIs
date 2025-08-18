@@ -8,6 +8,19 @@ after making get and post, i was struggling a bit cause i started using thunder 
     app.use(express.json());
 in the middle ware, and bam it works
 
+post for user: registration and login
+    registration
+        require password to have minimum length 
+    login 
+
+    bcrypt
+        terminal : npm i bcrypt
+        to hash password we need to create a salt, and then use that salt along with password to create a hashed password
+            bcrypt takes care of this for us
+
+    user.controllers
+        require bcrypt
+        
 
 Testing:
 
