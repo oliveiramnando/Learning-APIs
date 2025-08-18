@@ -24,6 +24,10 @@ post for user: registration and login
         when logging in, must find username within database by using findOne. findOne requires {fieldName: value}
         after finding username, must compare password input with the hashedpassword in database by using bycrypt.compare. uses same salt thats in the hash
         
+allow relationships between user and projects, make it so that user is not able to access projects of another user
+added middleware isOwner to check if user is owner of project before allowoing post, put, delete options.
+
+goal: make it so that u cant create,update,delete projects unless you're ownder
 
 Testing:
 
