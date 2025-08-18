@@ -41,8 +41,25 @@ const register = async (req,res) => {
 
 const login = async (req,res) => {
     try {
-        const user = await User.create(req.body);
-        res.status(200).json(user);
+        // validation
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ message: "Both username and password are required" });
+        }
+
+        // finding user
+        const user = await User.findOne({ username }); // needs a filter object (something within {} ) to search for specific field
+        if (!user) {
+            return res.status(400).json({ message: "Cannot find user!"});
+        }
+        
+        // checking passwords
+        if (await bcrypt.compare(req.body.password , user.password)) {
+            res.send("Success");
+        } else {
+            res.send("Login failed");
+        }
+        
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

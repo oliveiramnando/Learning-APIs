@@ -20,6 +20,9 @@ post for user: registration and login
 
     user.controllers
         require bcrypt
+        bcrypt used for hashing passwords; needs salt so that if there are passwords that are the same, they get hashed differently.
+        when logging in, must find username within database by using findOne. findOne requires {fieldName: value}
+        after finding username, must compare password input with the hashedpassword in database by using bycrypt.compare. uses same salt thats in the hash
         
 
 Testing:

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { list,listUsers, register, login } = require('../controllers/user.controllers.js');
+const { listUsers, register, login } = require('../controllers/user.controllers.js');
 
 router.get('/', listUsers); // testing
 
