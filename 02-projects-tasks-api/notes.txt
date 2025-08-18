@@ -26,8 +26,16 @@ post for user: registration and login
         
 allow relationships between user and projects, make it so that user is not able to access projects of another user
 added middleware isOwner to check if user is owner of project before allowoing post, put, delete options.
+    isOwnder decides if this caller is allowed to perform the action
+        uses req.user (which devAuth put there), loads the porject from DB, compares project.userId with req.user._id, if they match alllow, if not rejects
+        doesnt care how you authenticate, just enforeces permission rule
+        "You can't walk into this private room unless your name is on the lease"
+added devAuth 
+    dev auth figures out who the caller is 
+        reads X-User-Id header, checks if its a valid MongoDB ObjectId, finds user in database, if it'svalid attaches user id to req.user, if not rejects
+        "Show me your id at the door so i know who you are"
 
-goal: make it so that u cant create,update,delete projects unless you're ownder
+goal: make it so that u cant create,update,delete projects unless you're ownner
 
 Testing:
 

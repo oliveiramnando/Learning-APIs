@@ -10,6 +10,19 @@ const listUsers = async (req,res) => { // testing
     }
 }
 
+const deleteUser = async (req,res) => {
+    try {
+        const userId = req.params.UserId;
+        if (!userId) {
+            return res.status(404).json({ message: "User not found "});
+        }
+        await User.findByIdAndDelete(userId);
+        res.status(200).json({ message: "Successfully deleted" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const register = async (req,res) => {
     try {
         const { username, password }  = req.body;
@@ -67,6 +80,7 @@ const login = async (req,res) => {
 
 module.exports = {
     listUsers,
+    deleteUser,
     register,
     login
 }

@@ -9,7 +9,7 @@ const UserSchema = mongoose.Schema(
         password: {
             type: String,
             required: true,
-            select: false //hides password on queries
+            select: false //hides password on queries.
         }
     }
 );
