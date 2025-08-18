@@ -3,11 +3,11 @@ const User = require('../models/user.models.js');
 
 const devAuth = async (req,res,next) => {
     try {
-        const userId = req.header("X-User-Id"); // reads cucstom HTTP header form request; cheap stand-in for JWT for now
+        const userId = req.header("X-User-Id"); // reads custom HTTP header form request; cheap stand-in for JWT for now
         if (!userId) {
             return res.status(401).json({ message: "Missing X-User-Id header" });
         } 
-        if (!mongoose.isValidObjectId(userId)) {
+        if (!mongoose.isValidObjectId(userId)) { // looks for id in database
             return res.status(400).json({ message: "Invalid X-User-Id" });
         }
 

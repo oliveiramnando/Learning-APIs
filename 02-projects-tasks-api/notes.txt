@@ -25,6 +25,7 @@ post for user: registration and login
         after finding username, must compare password input with the hashedpassword in database by using bycrypt.compare. uses same salt thats in the hash
         
 allow relationships between user and projects, make it so that user is not able to access projects of another user
+
 added middleware isOwner to check if user is owner of project before allowoing post, put, delete options.
     isOwnder decides if this caller is allowed to perform the action
         uses req.user (which devAuth put there), loads the porject from DB, compares project.userId with req.user._id, if they match alllow, if not rejects
@@ -35,7 +36,10 @@ added devAuth
         reads X-User-Id header, checks if its a valid MongoDB ObjectId, finds user in database, if it'svalid attaches user id to req.user, if not rejects
         "Show me your id at the door so i know who you are"
 
-goal: make it so that u cant create,update,delete projects unless you're ownner
+made it so that in the project routes, it runs devAuth for post, put, and delete, and isOwner for put and delete
+
+goal: make it so that u cant create,update,delete tasks unless you're ownner
+
 
 Testing:
 
