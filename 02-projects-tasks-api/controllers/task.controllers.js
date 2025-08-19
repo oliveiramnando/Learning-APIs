@@ -2,7 +2,8 @@ const Tasks = require('../models/task.models.js');
 
 const readTasks = async (req,res) => {
     try {
-        const task = await Tasks.find({});
+        const { ProjectId } = req.params;
+        const task = await Tasks.find({ projectId: ProjectId }); //scoped tasks to proper project
         res.status(200).json(task);
     } catch (error) {
         res.status(500).json({ message: error.message });

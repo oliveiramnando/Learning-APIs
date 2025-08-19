@@ -37,12 +37,10 @@ added devAuth
         "Show me your id at the door so i know who you are"
 
 made it so that in the project routes, it runs devAuth for post, put, and delete, and isOwner for put and delete
-
-goal: make it so that u cant create,update,delete tasks unless you're ownner
+same thing with tasks
 
 
 Testing:
-
 using thunder client
 {
     "title": "", 
