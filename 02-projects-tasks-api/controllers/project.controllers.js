@@ -34,7 +34,7 @@ const createProject = async (req,res) => {
 const updateProject = async (req,res) => {
     try {
         const id = req.params.ProjectId;
-        const project = await Projects.findByIdAndUpdate(id, req.body);
+        const project = await Projects.findByIdAndUpdate(id, req.body, { new :true}); // new true returns the updated doc
         res.status(200).json(project);
     } catch (error) {
         res.status(500).json({message: error.message});

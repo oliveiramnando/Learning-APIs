@@ -29,7 +29,7 @@ const createTask = async (req,res) => {
 const updateTask = async (req,res) => {
     try {
         const id = req.params.TaskId;
-        const updatedTask = await Tasks.findByIdAndUpdate(id, req.body);
+        const updatedTask = await Tasks.findByIdAndUpdate(id, req.body, { new: true }); // returns updated doc
         res.status(200).json(updatedTask);
     } catch (error) {
         res.status(500).json({ message: error.message });
