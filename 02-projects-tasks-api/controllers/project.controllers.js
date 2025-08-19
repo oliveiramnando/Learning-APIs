@@ -22,7 +22,7 @@ const readProject = async (req,res) => {
 const createProject = async (req,res) => {
     try {
         const project = await Projects.create({
-            ...req.body,    // what the helly is this line
+            ...req.body,    // spread operator
             userId: req.user._id
         });
         res.status(200).json(project);
