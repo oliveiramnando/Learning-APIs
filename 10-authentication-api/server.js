@@ -14,15 +14,13 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const db_password = process.env.DB_PASSWORD;
-
 app.get('/', (req,res) => {
     res.json({ message: "Hello from 10-authentication-api" })
 })
 
 mongoose
 .connect(
-    `mongodb+srv://oliveiramnando:${db_password}@cluster0.lfrgmzj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    process.env.MONGO_URI
 )
 .then(() => {
     console.log('Connected!');
