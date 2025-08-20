@@ -1,0 +1,1 @@
+downloaded express, bcrypt, cookie-parser, cors, helmet, joi, jesonwebtoken, mongoose, nodemailer
