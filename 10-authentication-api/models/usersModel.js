@@ -1,3 +1,4 @@
+const { bool } = require('joi');
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
@@ -16,7 +17,7 @@ const userSchema = mongoose.Schema({
         select: false // whil we query users, password should not be fetched from DB automatically unless state otherwise
     },
     verified: {
-        type: boolean,
+        type: Boolean,
         default: false
     },
     verificationCode: { // storing code for verification process
