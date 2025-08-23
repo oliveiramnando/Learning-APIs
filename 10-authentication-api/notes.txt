@@ -11,5 +11,13 @@ before authcontroller, made a validation in middleware to check if user has prov
             Validates data against those schemas
             Prevents bad data from reaching your database or business logic
 then created utils to hash password
+finished signup in auth controller
+
+started sign in
+made the schema for it, same as sign up
+made hash validation to check password input iwht password in database
+made a token
+created cookie
+
 
 
