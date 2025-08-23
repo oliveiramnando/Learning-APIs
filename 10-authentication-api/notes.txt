@@ -1,1 +1,15 @@
 downloaded express, bcrypt, cookie-parser, cors, helmet, joi, jesonwebtoken, mongoose, nodemailer
+
+created basic server and required dependencies
+started authRouter
+before authcontroller, made a validation in middleware to check if user has provided our data to us
+    validator.js:
+        responsible for checking if the incoming request data is valid before backend processes it
+        schema in validator.js defines what is required
+        joi is a data validation library
+            Defines schemas (rules for data)
+            Validates data against those schemas
+            Prevents bad data from reaching your database or business logic
+then created utils to hash password
+
+

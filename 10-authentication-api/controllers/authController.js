@@ -1,11 +1,11 @@
-const { signupSchema} = require('../middlewares/validator');
+const { signupSchema } = require('../middlewares/validator');
 const { doHash } = require('../utils/hashing');
 const User = require('../models/usersModel');
 
 exports.signup = async (req,res) => {
     const { email, password } = req.body;
     try {
-        const { error, value } = signupSchema.validate({ email, password });
+        const { error, value } = signupSchema.validate({ email, password }); // runs joi validation on user input
 
         if (error) {
             return res.status(401).json({ success:false, message: error.details[0].message });
