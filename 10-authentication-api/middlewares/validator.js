@@ -13,3 +13,10 @@ exports.signinSchema = Joi.object({
     }),
     password: Joi.string().required().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*d).{8,}$'))
 })
+
+exports.acceptCodeSchema = Joi.object({
+    email: Joi.string().min(6).max(60).required().email({
+        tlds: { allowed: ['com', 'net'] }
+    }),
+    providedCode: Joi.number().required()
+})
