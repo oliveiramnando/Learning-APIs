@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { signupSchema, signinSchema, acceptCodeSchema, changePasswordSchema } = require('../middlewares/validator');
+const { signupSchema, signinSchema, acceptCodeSchema, changePasswordSchema, acceptFPCodeSchema } = require('../middlewares/validator');
 const { doHash, doHashValidation, hmacProcess } = require('../utils/hashing');
 const User = require('../models/usersModel');
 const transport = require('../middlewares/sendMail');
@@ -80,7 +80,7 @@ exports.sendVerificationCode = async (req,res) => {
             return res.status(400).json({ success: false, message: "Already Verified!" });
         }
 
-        const codeValue = Math.floor(Math.random() * 1000000).toString();
+        const codeValue = Math.floor(Math.random() * 1000000).toString().padStart(6, '0'); // pad ensures it is 6 digits;
         let info = await transport.sendMail({
             from: process.env.NODE_CODE_EMAIL_ADDRESS,
             to: existingUser.email,
@@ -167,3 +167,68 @@ exports.changePassword = async (req,res) => {
         console.log(error);
     }
 }
+
+exports.sendForgotPasswordCode = async (req,res) => {
+    const { email } = req.body;
+    try {
+        const existingUser = await User.findOne({ email })
+        if (!existingUser) {
+            return res.status(404).json({ success: false, message: "User doesn't exist!" });
+        }
+        
+        const codeValue = Math.floor(Math.random() * 1000000).toString().padStart(6, '0'); // pad ensures it is 6 digits
+        let info = await transport.sendMail({
+            from: process.env.NODE_CODE_EMAIL_ADDRESS,
+            to: existingUser.email,
+            subject: "Forgot Password Code",
+            html: '<h1>' + codeValue + '<h1>'
+        });
+
+        if (info.accepted[0] === existingUser.email) {
+            const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET)
+            existingUser.forgotPasswordCode = hashedCodeValue;
+            existingUser.forgotPasswordCodeValidation = Date.now();
+            await existingUser.save();
+            return res.status(200).json({ success: true, message: "Code sent!"});
+        }
+        return res.status(400).json({ success: false, message: "Code did not send!"}) // if email not accepted
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.verifyForgotPasswordCode = async (req,res) => {
+    const { email, providedCode, newPassword } = req.body;
+    try {
+        const { error, value } = acceptFPCodeSchema.validate({ email, providedCode, newPassword });
+        if (error) {
+            return res.status(401).json({ success:false, message: error.details[0].message });
+        } 
+        const codeValue = providedCode.toString();
+        const existingUser = await User.findOne({ email }).select("+forgotPasswordCode +forgotPasswordCodeValidation"); // needs spaave between plus
+        if (!existingUser) {
+            return res.status(404).json({ success: false, message: "User does not exist"});
+        }
+
+        if (!existingUser.forgotPasswordCode || !existingUser.forgotPasswordCodeValidation) {
+            return res.status(400).json({ success: false, message: "Something is wrong with the code!" })
+        }
+        if (Date.now() - existingUser.forgotPasswordCodeValidation > 15 * 60 * 1000){
+            return res.status(400).json({ success: false, message: "code has been expired!"});
+        }
+
+        const hashedCodeValue = hmacProcess(codeValue, process.env.HMAC_VERIFICATION_CODE_SECRET);
+        if (hashedCodeValue === existingUser.forgotPasswordCode) {
+            const hashPassword = await doHash(newPassword, 12);
+            existingUser.password = hashPassword;
+            existingUser.forgotPasswordCode = undefined;
+            existingUser.forgotPasswordCodeValidation = undefined;
+            await existingUser.save();
+            return res.status(200).json({ success: true, message: "Your password has been changed!" });
+        }
+        return res.status(400).json({ success: false, message: "unexpected occured"})
+    } catch (error) {
+        console.log(error);
+    }
+};

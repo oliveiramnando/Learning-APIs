@@ -18,6 +18,22 @@ made the schema for it, same as sign up
 made hash validation to check password input iwht password in database
 made a token
 created cookie
+ 
+created sign out and cleared cookie
+
+created send verification
+    for this created sendMail in middleware node mailer and create NODE_CODE_SENDING_EMAIL_ADDRESS and NODE_CODE_SENDING_EMAIL_PASSWORD in .env file
+    made email layout
+    made another function in hashing.js for hashing the code
+        had to use hmac to hash the verificaiton code
+        HMAC_VERIFICATION_CODE_SECRET in .env
+
+created verify verificaiton code and created accept code schema
+
+change password
+
+forgot password
+    similar to send verificaiton just a few changes
 
 
 
