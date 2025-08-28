@@ -46,7 +46,7 @@ exports.signin = async (req,res) => {
             return res.status(401).json({ success:false, message: error.details[0].message });
         }
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email }).select('+password');
         if (!existingUser) {
             return res.status(404).json({ success: false, message: "User not found, please sign up"});
         }
@@ -64,9 +64,23 @@ exports.signin = async (req,res) => {
                 expiresIn: '8h'
             }
         );
-        res.cookie('Authorization', 'Bearer ' + token, { expires: new Date(Date.now() + 8 * 3600000), httpOnly: process.env.NODE_ENV === 'production', secure: process.env.NODE_ENV === 'production' }).json({ success: true, message: "Login successful!"});
+        res.cookie('Authorization', 'Bearer ' + token, { expires: new Date(Date.now() + 8 * 3600000), httpOnly: process.env.NODE_ENV === 'production', secure: process.env.NODE_ENV === 'production' }).json({ success: true, token, message: "Login successful!", });
 
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+exports.me = async (req,res) => {
+    const { _id } = req.user;
+    try {
+        const result = await User.findOne({ _id });
+        return res.status(200).json({ success: true, message: "Your Profile", result});
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.signout = async (req,res) => {
+    res.clearCookie('Authorization').status(200).json({ success: true, message: "Successfully signed out" });
+};
