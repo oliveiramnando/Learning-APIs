@@ -7,7 +7,7 @@ exports.getPosts = async (req,res) => {
 
     try {
         let pageNum = 0;
-        if (page <= 1) {
+        if (page <= 1) {    // pagination
             pageNum = 0;
         } else {
             pageNum = page - 1;
@@ -17,6 +17,21 @@ exports.getPosts = async (req,res) => {
             select: 'email'
         }); // sorts at created time; skip some posts if page incrementsl; limit to postPErPage; and querying data
         res.status(200).json({ success: true, message: "Posts", data:result });
+
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.singlePost = async (req,res) => {
+    const { _id } = req.query;
+    try {
+        const result = await Post.findOne({ _id }).populate({
+            path: 'userId',
+            select: 'email'
+        }); // sorts at created time; skip some posts if page incrementsl; limit to postPErPage; and querying data
+        res.status(200).json({ success: true, message: "Single Post", data:result });
 
 
     } catch (error) {

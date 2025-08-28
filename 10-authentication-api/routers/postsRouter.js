@@ -5,7 +5,7 @@ const postsController = require('../controllers/postsController.js')
 const { identifier } = require('../middlewares/identification.js');
 
 router.get('/all-posts', postsController.getPosts);
-// router.get('/single-post', authController.signin);
+router.get('/single-post', postsController.singlePost);
 router.post('/create-post', identifier, postsController.createPost);
 
 // router.put('/update-post', identifier, authController.sendVerificationCode);
