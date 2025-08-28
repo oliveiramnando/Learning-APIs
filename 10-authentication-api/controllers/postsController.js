@@ -66,7 +66,7 @@ exports.updatePost = async (req,res) => {
     const { title, description } = req.body;
     const { userId } = req.user;
     const { _id } = req.query;
-    
+
     try {
         const { error, value } = createPostSchema.validate({ title, description, userId }); //can use this schema
         if (error) {
@@ -88,6 +88,28 @@ exports.updatePost = async (req,res) => {
         const result = await existingPost.save();
 
         return res.status(200).json({ success:true, message: "Post Updated", data: result });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.deletePost = async (req,res) => {
+    const { title, description } = req.body;
+    const { userId } = req.user;
+    const { _id } = req.query;
+
+    try {
+        const existingPost = await Post.findOne({ _id });
+        if (!existingPost) {
+            return res.status(403).json({ success:false, message: "Post not found" });
+        }
+        if (existingPost.userId.toString() !== userId) {
+            return res.status(401).json({ success:false, message: "Unauthorized Access" });
+        }
+
+        await Post.deleteOne({ _id });
+
+        return res.status(200).json({ success:true, message: "Post Deleted" });
     } catch (error) {
         console.log(error);
     }
