@@ -2,10 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose')
 
+const authRouter = require('./routers/authRouter.js');
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/auth', authRouter);
 
 app.get('/', (req,res) => {
     res.json({ message: "Hello from 11-rbac-permissions-api" })
