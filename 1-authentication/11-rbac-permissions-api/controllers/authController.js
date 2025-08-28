@@ -74,8 +74,16 @@ exports.signin = async (req,res) => {
 exports.me = async (req,res) => {
     const userId = req.user._id;
     try {
-        const result = await User.findOne({ userId });
-        return res.status(200).json({ success: true, message: "Your Profile", result});
+        if (!userId) {
+            return res.status(401).json({ success: false, message: "Unauthroized" });
+        }
+
+        const user = await User.findOne({ userId });
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        
+        return res.status(200).json({ success: true, message: "Your Profile", user});
     } catch (error) {
         console.log(error);
     }
