@@ -72,9 +72,9 @@ exports.signin = async (req,res) => {
 };
 
 exports.me = async (req,res) => {
-    const { _id } = req.user;
+    const userId = req.user._id;
     try {
-        const result = await User.findOne({ _id });
+        const result = await User.findOne({ userId });
         return res.status(200).json({ success: true, message: "Your Profile", result});
     } catch (error) {
         console.log(error);

@@ -13,7 +13,12 @@ working on sign in AuthController will require a validator for the fields in mid
     working on compare hash value in hashing.js
     after checking email and password, must assign token
         imported jsonwebtoken
-    npm i cookie-parser and require in server.jsto read cookie
+    npm i cookie-parser and require in server.js to read cookie
 
 working on me, will need an identifier to return current user profile
     need identification in middleware
+        require jwt in identification
+    identification is how we do const { _id } = req.user;
+    require cookieparser and use in server.js so that 
+
+signout require identifier, clear cookie

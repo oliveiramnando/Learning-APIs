@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
         trim: true,
         unique: [true, "Email must be unique"],
         minLength: [4, "Email not long enough"],
-        lowercase: true
+        lowercase: true,
+        select: true
     },
     password: {
         type: String,
@@ -18,13 +19,15 @@ const userSchema = mongoose.Schema({
     role: {
         type: String,
         enum: ["User", "Moderator", "Admin"],
-        default: "User"
+        default: "User",
+        select: true
     },
     directPermissions: ["String"],
-    status:{
+    stat:{
         type: String,
         enum: ["Active", "Suspended"],
-        default: "Active"
+        default: "Active",
+        select: true
     }
 },
 { 
