@@ -1,0 +1,2 @@
+created basic set up
+working on sign up for AuthController, will require a validator for the fields in middleware
