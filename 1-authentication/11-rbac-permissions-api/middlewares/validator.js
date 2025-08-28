@@ -5,6 +5,6 @@ exports.signupSchema = Joi.object({
         tlds: { allowed: ['com', 'net', 'edu']}
     }),
     password: Joi.string().required().pattern(new RegExp(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     ))
 });
