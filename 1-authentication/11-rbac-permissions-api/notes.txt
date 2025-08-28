@@ -1,2 +1,8 @@
+imported express, dotenv, mongoose
 created basic set up
-working on sign up for AuthController, will require a validator for the fields in middleware
+working on sign up for AuthController, will require a validator for the fields in middleware, and hashpassword in validator,
+    worked on hasing.js
+        hashing passord on sign up
+    working on validator for schema, requires joi  
+        imorted joi
+    imported
