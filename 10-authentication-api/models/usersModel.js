@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Email is required!"],
         trim: true, // gets rid of spaces before and after
-        unique: [, "Email must be unique!"], // checks if email is unique
+        unique: [true , "Email must be unique!"], // checks if email is unique
         minLength: [5, "Email must have at least 5 characters"],
         lowercase: true // makes input all lowercase
     },
