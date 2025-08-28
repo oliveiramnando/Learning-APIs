@@ -36,4 +36,4 @@ forgot password
     similar to send verificaiton just a few changes
 
 
-
+work on posts router ---- 

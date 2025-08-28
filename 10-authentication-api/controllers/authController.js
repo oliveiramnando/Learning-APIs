@@ -162,7 +162,7 @@ exports.changePassword = async (req,res) => {
         const hashedPassword = await doHash(newPassword, 12);
         existingUser.password = hashedPassword;
         await existingUser.save();
-        return res.status(200).json({ success:true, message: "password updated" })
+        return res.status(200).json({ success:true, message: "password updated" });
     } catch (error) {
         console.log(error);
     }
