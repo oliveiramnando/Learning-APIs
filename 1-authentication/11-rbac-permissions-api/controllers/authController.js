@@ -59,6 +59,7 @@ exports.signin = async (req,res) => {
         const token = jwt.sign({
                 id: existingUser._id,
                 email: existingUser.email,
+                role: existingUser.role     // pass in role to know what role the user is assigned to
             },process.env.TOKEN_SECRET,
             {
                 expiresIn: '8h'
@@ -82,7 +83,7 @@ exports.me = async (req,res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
-        
+
         return res.status(200).json({ success: true, message: "Your Profile", user});
     } catch (error) {
         console.log(error);
