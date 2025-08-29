@@ -5,11 +5,11 @@ const hashing = require('../utils/hashing.js');
 const validator = require('../middlewares/validator.js');
 
 exports.signup = async (req,res) => {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     try {
         const { error } = validator.signUpInSchema.validate({ 
             email, 
-            password 
+            password ,
         });
         if (error) {
             return res.status(401).json({ success:false, message: error.details[0].message });
@@ -23,7 +23,8 @@ exports.signup = async (req,res) => {
         const hashedPassword = await hashing.doHash(password, 12);
         const newUser = new User({
             email, 
-            password: hashedPassword
+            password: hashedPassword,
+            role
         });
 
         const result = await newUser.save();
@@ -46,7 +47,7 @@ exports.signin = async (req,res) => {
             return res.status(401).json({ success:false, message: error.details[0].message });
         }
 
-        const existingUser = await User.findOne({ email }).select('+password');
+        const existingUser = await User.findOne({ email }).select('+password +role');
         if (!existingUser) {
             return res.status(404).json({ success: false, message: "User not found, please sign up"});
         }
@@ -73,13 +74,13 @@ exports.signin = async (req,res) => {
 };
 
 exports.me = async (req,res) => {
-    const userId = req.user._id;
+    const { id } = req.user;
     try {
-        if (!userId) {
-            return res.status(401).json({ success: false, message: "Unauthroized" });
+        if (!id) {
+            return res.status(401).json({ success: false, message: "Unauthorized" });
         }
 
-        const user = await User.findOne({ userId });
+        const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
