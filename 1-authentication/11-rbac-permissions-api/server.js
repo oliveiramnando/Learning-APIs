@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routers/authRouter.js');
+const rbacRouter = require('./routers/rbacRouter.js');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRouter);
+app.use('/api/rbac', rbacRouter);
 
 app.get('/', (req,res) => {
     res.json({ message: "Hello from 11-rbac-permissions-api" })
