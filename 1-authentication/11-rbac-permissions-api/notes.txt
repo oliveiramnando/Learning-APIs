@@ -19,6 +19,20 @@ working on me, will need an identifier to return current user profile
     need identification in middleware
         require jwt in identification
     identification is how we do const { _id } = req.user;
-    require cookieparser and use in server.js so that 
+    require cookieparser and use in server.js 
 
 signout require identifier, clear cookie
+
+starting rbac stuff
+rbac router need protection
+    we do this by access token (JWT) because we assidned role when we created it
+
+added another middleware for authorize roles so that only certain roles can do certain things
+started workin on controller for rbac
+created a rolesSchema and permissionsSchema
+
+
+authRouter - everyone
+postsRouter - normal users can CRUD their own, moderators/admin can CRUD anyones post
+usersRouter - only admin can see/delete other users. Regular users can’t.
+rbac - only admin can read/manage roles/permissions.
