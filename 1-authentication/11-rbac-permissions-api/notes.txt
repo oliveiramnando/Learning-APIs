@@ -31,6 +31,17 @@ added another middleware for authorize roles so that only certain roles can do c
 started workin on controller for rbac
 created a rolesSchema and permissionsSchema
 
+worked on get permissions and get roles
+for post roles will have to create a schema 
+    created role and permission schema
+work on the rest of rbac controller
+
+working on patch for updating permissions but i've hit a road block
+working on the rest of the controller functions for now
+    was able to path admin
+
+*** tighten up rbac controller cause i know that is not perfect
+
 
 authRouter - everyone
 postsRouter - normal users can CRUD their own, moderators/admin can CRUD anyones post
