@@ -10,6 +10,6 @@ router.get('/roles', identifier, authorizeRole("admin"), rbacController.listRole
 router.post('/roles', identifier, authorizeRole("admin"), rbacController.createRole);                  // create role (key, description, permissions[])
 // router.patch('/roles/:key', identifier, authorizeRole("Admin"), rbacController.updatePermissions);            // add/remove permission keys.
 router.patch('/users/:id/role', identifier, authorizeRole("admin"), rbacController.setRole);        // set user role.
-// router.patch('/users/:id/permissions', identifier, authorizeRole("Admin"), rbacController.setPermissions); // grant/revoke direct permission keys.
+router.patch('/users/:id/permissions', identifier, authorizeRole("admin"), rbacController.setPermissions); // grant/revoke direct permission keys.
 
 module.exports = router;

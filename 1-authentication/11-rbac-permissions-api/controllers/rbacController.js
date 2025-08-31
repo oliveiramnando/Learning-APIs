@@ -94,6 +94,46 @@ exports.setRole = async (req,res) => {
     }
 };
 
-// exports.setUserPermissions = async (req,res) => {
-    
-// };
+exports.setPermissions = async (req,res) => {
+    const { id } = req.params;
+    let { permissions } = req.body;
+    try {
+        const existingUser = await User.findById(id);
+        if (!existingUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        if (permissions === undefined || permissions === null) {
+            return res.status(400).json({ success: false, message: "Please provide permissions" });
+        }
+
+        // will have to normalize permissions to array of strings here
+        // If it's a single string, wrap it in an array
+        if (typeof permissions === "string") {
+            permissions = [permissions];
+        }
+        // If it's missing or not an array, reject
+        if (!Array.isArray(permissions)) {
+            return res.status(400).json({ success: false, message: "permissions must be a string or an array of strings" })
+        }
+
+        const unique = [...new Set(
+        permissions
+            .filter(p => typeof p === "string")
+            .map(p => p.trim())
+            .filter(Boolean)
+        )];
+
+        const updatedUser = await User.findByIdAndUpdate(
+        id,
+        { $set: { directPermissions: unique } },   // <-- correct field
+        { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(400).json({ success: false, message: "Something went wrong" });
+        }
+        return res.status(200).json({ success:true, message: "User successfully updated", updatedUser});
+    } catch (error) {
+        console.log(error);
+    }
+};
