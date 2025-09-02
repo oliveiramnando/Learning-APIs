@@ -36,35 +36,39 @@ exports.createRole = async (req,res) => {
     }
 };
 
-// exports.updatePermissions = async (req,res) => {
-//     const { key } = req.params;
-//     const { add, remove } = req.body;
-//     try {
-//         if (!key) {
-//             return res.status(400).json({ success: false, message: "Failed to provide role" });
-//         }
-//         const role = await Role.findOne({ key });
-//         if (!role) {
-//             return res.status(404).json({ message: false, message: "Role does not exist" });
-//         }
-//         if (!add && !remove) {
-//             return res.status(400).json({ success: false, message: "Please provide add or remove method" });
-//         }
+exports.updatePermissions = async (req,res) => {
+    const { key, add, remove } = req.body;
+    try {
+        if (!key) {
+            return res.status(400).json({ success: false, message: "Failed to provide role" });
+        }
+        const role = await Role.findOne({ key });
+        if (!role) {
+            return res.status(404).json({ message: false, message: "Role does not exist" });
+        }
+        if (!add && !remove) {
+            return res.status(400).json({ success: false, message: "Please provide add or remove method" });
+        }
 
-//         const update = {};
-//         if (add) {
-//             role.permissions.push(add);
-//         }
-//         if (remove) {
-//             role.permissions.pull(remove);
-//         }
-//         await role.save();
-//         const result = role.permissions;
-//         return res.status(200).json({ success: true, message: "Permissions of role successfully updated", result})
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };  
+        if (add) {
+            const addPermissions = add.split(" ")
+            for (let perm of addPermissions) {
+                role.permissions.push(perm);
+            }
+        }
+        if (remove) {
+            const removePermissions = remove.split(" ");
+            for (let perm of removePermissions) { 
+                role.permissions.pull(perm);
+            }
+        }
+        await role.save();
+        const result = role.permissions;
+        return res.status(200).json({ success: true, message: "Permissions of role successfully updated", result})
+    } catch (error) {
+        console.log(error);
+    }
+};  
 
 exports.setRole = async (req,res) => {
     const { id } = req.params;
