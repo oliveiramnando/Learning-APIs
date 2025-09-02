@@ -44,7 +44,11 @@ add and remove permission in rbac controller
 
 *** tighten up rbac controller cause i know that is not perfect **
 
-workingn on user router and controllers
+working on user router and controllers
+    make it so that only admin can delete user
+
+work on posts controller and router
+    need createPost schema validator
 
 
 authRouter - everyone
