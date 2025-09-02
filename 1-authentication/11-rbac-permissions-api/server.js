@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/rbac', rbacRouter);
-app.use('/api/user', userRouter);
+app.use('/api/users', userRouter);
 
 app.get('/', (req,res) => {
     res.json({ message: "Hello from 11-rbac-permissions-api" })

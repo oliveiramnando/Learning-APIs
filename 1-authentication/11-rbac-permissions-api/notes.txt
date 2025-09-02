@@ -44,7 +44,7 @@ add and remove permission in rbac controller
 
 *** tighten up rbac controller cause i know that is not perfect **
 
-
+workingn on user router and controllers
 
 
 authRouter - everyone
