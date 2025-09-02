@@ -105,7 +105,6 @@ exports.setPermissions = async (req,res) => {
         if (permissions === undefined || permissions === null) {
             return res.status(400).json({ success: false, message: "Please provide permissions" });
         }
-
         // will have to normalize permissions to array of strings here
         // If it's a single string, wrap it in an array
         if (typeof permissions === "string") {

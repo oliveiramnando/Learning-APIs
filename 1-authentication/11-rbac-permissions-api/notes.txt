@@ -40,7 +40,11 @@ working on patch for updating permissions but i've hit a road block
 working on the rest of the controller functions for now
     was able to path admin
 
-*** tighten up rbac controller cause i know that is not perfect
+add and remove permission in rbac controller
+
+*** tighten up rbac controller cause i know that is not perfect **
+
+
 
 
 authRouter - everyone
