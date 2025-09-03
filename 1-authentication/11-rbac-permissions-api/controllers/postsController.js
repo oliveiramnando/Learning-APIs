@@ -1,11 +1,16 @@
 const Post = require('../models/postsModel.js');
+const { createPostSchema } = require('../middlewares/validator.js');
 
 exports.createPost = async (req,res) => {
-    const { title, description } = req.params;
+    const { title, description } = req.body;
     try {
         // add validaor for create post schema here
+        const { error, value } = createPostSchema.validate({ title, description });
+        if (error) {
+            return res.status(400).json({ success: false, message: error.details[0].message });
+        }
 
-        const post = await Post.createPost({
+        const post = await Post.create({
             title,
             description
         });
@@ -41,7 +46,12 @@ exports.updatePost = async (req,res) => {
     const { postId } = req.params;
     const { title, description } = req.body;
     try {
-        const existingPost = await Post.findById({ postId });
+        const { error, value } = createPostSchema.validate({ title, description });
+        if (error) {
+            return res.status(400).json({ success: false, message: error.details[0].message });
+        }
+
+        const existingPost = await Post.findById(postId);
         if (!existingPost) {
             return res.status(404).json({ success: false, message: "Post not found" });
         }
