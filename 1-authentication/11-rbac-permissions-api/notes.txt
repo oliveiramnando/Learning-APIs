@@ -49,6 +49,7 @@ working on user router and controllers
 
 work on posts controller and router
     need createPost schema validator
+    and update
 
 
 authRouter - everyone
