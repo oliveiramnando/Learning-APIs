@@ -11,5 +11,6 @@ exports.signUpInSchema = Joi.object({
 
 exports.createPostSchema = Joi.object({
     title: Joi.string().min(1).max(60).required(),
-    description: Joi.string().max(600)
+    description: Joi.string().max(600),
+    authorId: Joi.required()
 })
