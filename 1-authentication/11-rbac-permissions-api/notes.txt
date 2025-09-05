@@ -51,6 +51,20 @@ work on posts controller and router
     need createPost schema validator
     and update
     make so that assign user to post, make so that only user moderator and admin can crud anyone
+        curreently struggling with this. ive assigned the author id to the post but i cant seem to make the crud selective
+            i think the problem lies in the identification
+                    properly read the headers in identification
+                        client sends a request with a bearer token
+                        identifier middleware runs first
+                            It reads the raw token string from the request header (or cookie, if no header).
+                            It strips off "Bearer " and verifies the JWT
+                        The decoded payload is attached to req.user
+                        Middleware sets req.user
+                        Now any controller (like updatePost) can safely use req.user.
+                after properly updating identification and adding debug logs, i properly updated the controller. what a learning experience that was    
+                    use mongoose to handle some stuff
+                    use mongodb query filter 
+                    only update the provided fields
 
 
 authRouter - everyone
