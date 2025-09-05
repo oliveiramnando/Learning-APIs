@@ -1,6 +1,5 @@
 const express = require('express');
 const { identifier } = require('../middlewares/identification.js');
-const { authorizeRole } = require('../middlewares/roleMiddleware.js');
 const postsController = require('../controllers/postsController.js');
 
 const router = express.Router();
