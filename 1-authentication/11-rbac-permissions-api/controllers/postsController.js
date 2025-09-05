@@ -3,16 +3,18 @@ const { createPostSchema } = require('../middlewares/validator.js');
 
 exports.createPost = async (req,res) => {
     const { title, description } = req.body;
+    const authorId = req.user.id;
     try {
         // add validaor for create post schema here
-        const { error, value } = createPostSchema.validate({ title, description });
+        const { error, value } = createPostSchema.validate({ title, description, authorId });
         if (error) {
             return res.status(400).json({ success: false, message: error.details[0].message });
         }
 
         const post = await Post.create({
             title,
-            description
+            description,
+            authorId
         });
         return res.status(200).json({ success: true, message:"Post created successfully", post });
     } catch (error) {

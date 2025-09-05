@@ -8,6 +8,11 @@ const postSchema = mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    authorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }, {
     timestamps: true
