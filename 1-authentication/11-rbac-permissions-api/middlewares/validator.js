@@ -14,3 +14,8 @@ exports.createPostSchema = Joi.object({
     description: Joi.string().max(600),
     authorId: Joi.required()
 })
+
+exports.updatePostSchema = Joi.object({
+    title: Joi.string().min(1).max(60).required(),
+    description: Joi.string().max(600),
+})

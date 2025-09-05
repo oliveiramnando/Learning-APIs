@@ -1,5 +1,5 @@
 const Post = require('../models/postsModel.js');
-const { createPostSchema } = require('../middlewares/validator.js');
+const { createPostSchema, updatePostSchema } = require('../middlewares/validator.js');
 
 exports.createPost = async (req,res) => {
     const { title, description } = req.body;
@@ -47,8 +47,9 @@ exports.getPost = async (req,res) => {
 exports.updatePost = async (req,res) => {
     const { postId } = req.params;
     const { title, description } = req.body;
+    // if the autherid of postId is not same of user id AND the role is not admin or moderator, then return 
     try {
-        const { error, value } = createPostSchema.validate({ title, description });
+        const { error, value } = updatePostSchema.validate({ title, description }); // optimize postSchemas
         if (error) {
             return res.status(400).json({ success: false, message: error.details[0].message });
         }
@@ -57,16 +58,13 @@ exports.updatePost = async (req,res) => {
         if (!existingPost) {
             return res.status(404).json({ success: false, message: "Post not found" });
         }
+        const authorId = existingPost.authorId;
+        if (req.user.id != authorId && req.user.role != 'admin') {
+            return res.status(400).json({ success: false, message: "unauthorized access" });
+        }
 
         // add validator for udpate post
         // /////
-
-
-        // const updatedPost = await Post.findByIdAndUpdate(postId,     // alternative???
-        //     {$set: title, description},
-        //     {new: true, runValidators: true}
-        // );
-        // return res.status(200).json({ success: true, message: "Post Updated", updatedPost});
 
         existingPost.title = title;
         existingPost.description = description

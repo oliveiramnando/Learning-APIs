@@ -50,6 +50,7 @@ working on user router and controllers
 work on posts controller and router
     need createPost schema validator
     and update
+    make so that assign user to post, make so that only user moderator and admin can crud anyone
 
 
 authRouter - everyone
